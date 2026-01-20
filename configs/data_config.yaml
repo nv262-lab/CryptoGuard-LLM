@@ -1,0 +1,117 @@
+# CryptoGuard-LLM Data Configuration
+# Authors: Naga Sujitha Vummaneni, Usha Ratnam Jammula, Ramesh Chandra Aditya Komperla
+
+# Data Sources
+data_sources:
+  blockchain:
+    bitcoin:
+      node_url: "http://localhost:8332"
+      start_block: 800000
+      end_block: null  # Latest
+    ethereum:
+      node_url: "http://localhost:8545"
+      start_block: 18000000
+      end_block: null
+  
+  exchanges:
+    - name: "binance"
+      api_base: "https://api.binance.com"
+    - name: "coinbase"
+      api_base: "https://api.coinbase.com"
+  
+  social_media:
+    twitter:
+      enabled: true
+      keywords: ["crypto", "bitcoin", "ethereum", "defi"]
+    reddit:
+      enabled: true
+      subreddits: ["cryptocurrency", "bitcoin", "ethereum"]
+
+# Preprocessing
+preprocessing:
+  # Numerical features
+  numerical:
+    scaler: "standard"  # standard, minmax, robust
+    handle_missing: "median"
+    clip_outliers: true
+    outlier_std: 3.0
+  
+  # Categorical features
+  categorical:
+    encoding: "label"  # label, onehot
+    handle_unknown: "ignore"
+  
+  # Text preprocessing
+  text:
+    lowercase: true
+    remove_urls: true
+    remove_special_chars: false
+    max_length: 512
+    tokenizer: "bert-base-uncased"
+
+# Feature Engineering
+features:
+  # Transaction features
+  transaction:
+    - value
+    - gas_price
+    - gas_used
+    - input_length
+    - is_contract_creation
+    - is_contract_call
+  
+  # Wallet features
+  wallet:
+    - wallet_age_days
+    - total_transactions
+    - total_received
+    - total_sent
+    - unique_counterparties
+    - avg_transaction_value
+    - transaction_frequency
+  
+  # Temporal features
+  temporal:
+    - hour_of_day
+    - day_of_week
+    - is_weekend
+    - time_since_last_tx
+    - tx_count_last_hour
+    - tx_count_last_day
+  
+  # Graph features
+  graph:
+    node_feature_dim: 128
+    edge_feature_dim: 64
+    max_neighbors: 50
+    include_temporal: true
+
+# Dataset Split
+split:
+  method: "temporal"  # temporal, random, stratified
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  
+  # For temporal split
+  temporal:
+    train_end: "2025-09-30"
+    val_end: "2025-10-31"
+    test_end: "2025-12-31"
+
+# Data Augmentation
+augmentation:
+  enabled: true
+  techniques:
+    - name: "smote"
+      ratio: 0.5
+    - name: "noise_injection"
+      std: 0.01
+    - name: "feature_dropout"
+      rate: 0.1
+
+# Caching
+cache:
+  enabled: true
+  cache_dir: "data/cache"
+  max_size_gb: 50
