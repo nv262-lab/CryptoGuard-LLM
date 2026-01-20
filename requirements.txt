@@ -1,0 +1,67 @@
+# CryptoGuard-LLM Requirements
+# Python 3.9+ required
+
+# Deep Learning
+torch>=2.1.0
+torchvision>=0.16.0
+torchaudio>=2.1.0
+
+# Graph Neural Networks
+torch-geometric>=2.4.0
+torch-scatter>=2.1.2
+torch-sparse>=0.6.18
+torch-cluster>=1.6.3
+dgl>=1.1.0
+networkx>=3.2
+
+# Transformers and NLP
+transformers>=4.35.0
+tokenizers>=0.15.0
+sentencepiece>=0.1.99
+openai>=1.3.0
+
+# Machine Learning
+scikit-learn>=1.3.0
+xgboost>=2.0.0
+lightgbm>=4.1.0
+imbalanced-learn>=0.11.0
+
+# Data Processing
+numpy>=1.24.0
+pandas>=2.1.0
+scipy>=1.11.0
+pyarrow>=14.0.0
+
+# Blockchain Data
+web3>=6.11.0
+eth-utils>=2.3.0
+bitcoin-utils>=0.5.3
+
+# Visualization
+matplotlib>=3.8.0
+seaborn>=0.13.0
+plotly>=5.18.0
+
+# Configuration
+pyyaml>=6.0.1
+omegaconf>=2.3.0
+hydra-core>=1.3.2
+
+# Logging and Monitoring
+tensorboard>=2.15.0
+wandb>=0.16.0
+tqdm>=4.66.0
+
+# API and Serving
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.5.0
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Utilities
+requests>=2.31.0
+python-dotenv>=1.0.0
+joblib>=1.3.0

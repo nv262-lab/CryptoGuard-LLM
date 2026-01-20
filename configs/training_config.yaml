@@ -1,0 +1,82 @@
+# CryptoGuard-LLM Training Configuration
+# Authors: Naga Sujitha Vummaneni, Usha Ratnam Jammula, Ramesh Chandra Aditya Komperla
+
+# Training Hyperparameters
+training:
+  epochs: 100
+  batch_size: 1024
+  
+  # Optimizer
+  optimizer: "sgd"
+  learning_rate: 0.01
+  momentum: 0.9
+  weight_decay: 1.0e-4
+  
+  # Learning rate scheduler
+  scheduler: "cosine_annealing"
+  warmup_epochs: 5
+  min_lr: 1.0e-6
+  
+  # Early stopping
+  early_stopping_patience: 10
+  
+  # Gradient clipping
+  gradient_clip_norm: 1.0
+  
+  # Class weights for imbalanced data (legitimate:fraudulent ≈ 47:1)
+  class_weights: [1.0, 47.0]
+
+# Data Configuration
+data:
+  # Temporal split for evaluation
+  train_split: 0.70  # Before October 2025
+  val_split: 0.15    # October 2025
+  test_split: 0.15   # November-December 2025
+  
+  # Use temporal split (recommended for fraud detection)
+  temporal_split: true
+  
+  # Stratified sampling during training
+  stratified_sampling: true
+  stratified_ratio: 0.5  # 50% fraudulent, 50% legitimate per batch
+  
+  # Data augmentation
+  augmentation:
+    enabled: true
+    noise_std: 0.01
+    dropout_rate: 0.1
+
+# Validation Configuration
+validation:
+  frequency: 1  # Validate every N epochs
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1
+    - auc_roc
+    - auc_pr
+
+# Checkpointing
+checkpointing:
+  save_frequency: 10  # Save every N epochs
+  save_best: true
+  save_last: true
+  max_checkpoints: 5
+
+# Logging
+logging:
+  log_frequency: 100  # Log every N batches
+  tensorboard: true
+  wandb: false
+  wandb_project: "cryptoguard-llm"
+
+# Hardware
+hardware:
+  num_workers: 8
+  pin_memory: true
+  mixed_precision: true  # Use FP16 training
+  
+# Reproducibility
+seed: 42
+deterministic: true
